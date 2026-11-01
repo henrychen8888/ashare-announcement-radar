@@ -1,0 +1,45 @@
+{
+  "name": "沪深公告快递看板",
+  "display_name": "沪深公告快递看板",
+  "display_name_zh": "沪深公告快递看板",
+  "display_name_en": "A-Share Announcement Radar",
+  "alias": "公告快递",
+  "identifier": "ashare-announcement-radar",
+  "version": "1.0.0",
+  "author": "莫扎特.AI",
+  "source": "local",
+  "description_zh": "抓取沪深（含北交所）上市公司当日「重大事项」类公告，自动判定利好/利空方向与 S/A/B/N 等级，叠加实时行情与涨停校验，输出单文件 HTML 看板。数据源自东方财富公告中心五个分类并集（重大事项/资产重组/风险提示/持股变动/融资公告），单日 600-800 条去重后压到数十条 S 级重点；S 级公告额外抓取正文摘要。支持方向/等级/主题/涨停/关键词多维即时筛选，红涨绿跌，双击即开、零外部依赖。",
+  "description_en": "Aggregate all major-event announcements for Shanghai, Shenzhen and Beijing listed companies, auto-classify direction (bullish/bearish/neutral) and importance (S/A/B/N), overlay real-time quotes with limit-up verification, and render a single-file HTML dashboard. Union of five Eastmoney announcement categories, deduplicated from 600-800 daily items down to a few dozen S-level must-knows; S-level items also get body-text summaries. Interactive filtering by direction, level, topic, limit-up status and keyword. Red-up/green-down A-share convention, opens offline with zero dependencies.",
+  "examples_zh": [
+    "抓一下今天的沪深公告快递",
+    "今天有哪些重大事项公告",
+    "盘后公告复盘，出个看板",
+    "今晚哪家公司发了重大合同",
+    "哪些公司公告了减持",
+    "生成公告看板，我要看 S 级利好"
+  ],
+  "examples_en": [
+    "Fetch today's A-share announcement digest",
+    "Any major-event announcements today?",
+    "Build a post-close announcement review dashboard",
+    "Which company announced a major contract tonight?",
+    "Who announced share reductions?",
+    "Generate the announcement board, show S-level bullish only"
+  ],
+  "iconSource": "letter:auto",
+  "category": "金融投资",
+  "subcategory": "A股 · 公告 / 事件驱动",
+  "tags": ["A股", "公告", "重大事项", "沪深", "北交所", "利好利空", "打标", "看板", "涨停", "事件驱动", "盘后复盘"],
+  "audience": "A股短线交易者 / 事件驱动投资者 / 需要每日盘后公告复盘的量化开发者",
+  "scope_zh": "适用于：每日全市场重大事项公告汇总与筛选；快速定位利好利空事件；盘后复盘与次日盘前准备；把公告事件与个股涨跌幅、涨停状态交叉观察。不适用于：单一公司公告全文深度解读；行业归属分析（公告接口不含行业字段）；收益预测或买卖建议。",
+  "scope_en": "Best for: daily whole-market major-event announcement aggregation and filtering; locating bullish/bearish events fast; post-close review and pre-open preparation; cross-referencing announcement events with price moves and limit-up status. Not for: deep full-text analysis of a single company's filing; sector attribution (the announcement API has no industry field); return forecasting or trading advice.",
+  "requirements": "Python 3.8+，仅标准库（urllib/json/re），无需 pip 安装。两个数据源均免鉴权：东方财富公告中心、腾讯财经行情。需可直连 np-anotice-stock.eastmoney.com、np-cnotice-stock.eastmoney.com、qt.gtimg.cn。必须设置 AB_HOME 环境变量指向工作区数据目录，避免写入技能包。",
+  "entry": "export AB_HOME=<工作区>/公告快递 && python scripts/run.py，随后 python scripts/verify.py 自检",
+  "boundaries": {
+    "suitable_for": ["每日全市场重大事项公告汇总", "利好利空事件快速定位", "盘后复盘与盘前准备", "公告事件 × 涨跌幅/涨停交叉观察"],
+    "not_suitable_for": ["单一公司公告全文解读", "行业归属分析（接口无行业字段）", "收益预测或买卖建议"]
+  },
+  "data_sources": ["东方财富公告中心（免鉴权）", "腾讯财经行情（免鉴权）"],
+  "data_disclaimer": "公告数据与行情均为公开信息快照，打标结果由规则引擎生成，可能存在误判，不构成投资建议。「公告股中涨停」指当日发过公告的个股里涨停的数量，非全市场涨停家数。",
+  "modules": ["S级利好", "S级利空", "主题分布", "公告明细列表", "方向/等级/主题筛选", "涨停标记"]
+}
